@@ -2,15 +2,15 @@ package com.avility.arquitecturalimpia.domain
 
 import com.avility.arquitecturalimpia.data.QuoteRepository
 import com.avility.arquitecturalimpia.data.model.QuoteModel
-import com.avility.arquitecturalimpia.data.model.QuoteProvider
+import com.avility.arquitecturalimpia.domain.model.Quote
 import javax.inject.Inject
 
 class GetRandomQuoteUseCase @Inject constructor(
-    private val quoteProvider : QuoteProvider
+    private val repository: QuoteRepository
 ) {
 
-    operator fun invoke(): QuoteModel? {
-        val quotes = quoteProvider.quotes
+    suspend operator fun invoke(): Quote? {
+        val quotes = repository.getAllQuotesFromDataBase()
 
         if (!quotes.isNullOrEmpty()) {
             val randomNumber = (quotes.indices).random()
